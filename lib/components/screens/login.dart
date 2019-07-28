@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:pingis/utils/constants.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 
-class IntroScreen extends StatefulWidget {
-  _IntroScreenState createState() => _IntroScreenState();
+class LoginScreen extends StatefulWidget {
+  _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _IntroScreenState extends State<IntroScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.redAccent,
@@ -28,7 +28,7 @@ class _IntroScreenState extends State<IntroScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Flexible(
-              flex: 6,
+              flex: 5,
               child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
                 Image.asset('assets/pingpong-cloud.png', fit: BoxFit.contain, height: 100),
                 Container(padding: const EdgeInsets.all(12.0), child: Text(title, style: Theme.of(context).textTheme.headline))
@@ -36,16 +36,10 @@ class _IntroScreenState extends State<IntroScreen> {
             ),
             Flexible(
               flex: 1,
-              child: Column(children: [
-                GoogleSignInButton(
-                  onPressed: () => Navigator.of(context).pushNamedAndRemoveUntil('/home', (_) => false),
-                  borderRadius: 8,
-                ),
-              ])
-            ),
-            Padding(
-              padding: EdgeInsets.all(8),
-              child: Text('Created by Mathieu Devos', style: TextStyle(fontSize: 9, color: Colors.red[100]))
+              child: GoogleSignInButton(
+                onPressed: () => Navigator.of(context).pushNamedAndRemoveUntil('/home', (_) => false),
+                borderRadius: 8,
+              ),
             ),
           ],
         )),
@@ -53,5 +47,3 @@ class _IntroScreenState extends State<IntroScreen> {
     );
   }
 }
-
-//

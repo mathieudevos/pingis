@@ -9,18 +9,19 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final title = Constants.getTitle();
-
   int _bottomNavBarIndex = 0;
   static const List<Widget> _widgetOptions = <Widget>[
     Text(
-      'Index 0: Home',
+      'Index 0: Profile',
     ),
     Text(
-      'Index 1: Business',
+      'Index 1: Elo',
     ),
     Text(
-      'Index 2: School',
+      'Index 2: Teams',
+    ),
+    Text(
+      'Index 3: Add',
     ),
   ];
 
@@ -37,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Image.asset('assets/pingpong-bw.png', fit: BoxFit.contain, height: 32, color: Colors.white),
-          Container(padding: const EdgeInsets.all(8.0), child: Text(this.title, style: Theme.of(context).textTheme.title)),
+          Container(padding: const EdgeInsets.all(8.0), child: Text(title, style: Theme.of(context).textTheme.title)),
         ]),
       ),
       body: Center(
@@ -53,12 +54,14 @@ class _HomeScreenState extends State<HomeScreen> {
         )),
         bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('Home')),
-            BottomNavigationBarItem(icon: Icon(Icons.hot_tub), title: Text('Hot tub')),
+            BottomNavigationBarItem(icon: Icon(Icons.person), title: Text('Profile')),
+            BottomNavigationBarItem(icon: Icon(Icons.trending_up), title: Text('Elo')),
+            BottomNavigationBarItem(icon: Icon(Icons.whatshot), title: Text('Teams')),
             BottomNavigationBarItem(icon: Icon(Icons.add), title: Text('Add')),
           ],
           currentIndex: _bottomNavBarIndex,
-          selectedItemColor: Colors.redAccent,
+          selectedItemColor: Colors.red[600],
+          unselectedItemColor: Colors.grey,
           onTap: _bottomNavBarItemTapped,
         ),
     );

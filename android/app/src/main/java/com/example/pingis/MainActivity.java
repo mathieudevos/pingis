@@ -1,4 +1,4 @@
-package com.example.pingis;
+package dev.mathieudevos.pingis;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

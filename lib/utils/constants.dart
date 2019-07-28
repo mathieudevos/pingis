@@ -1,14 +1,9 @@
+// File should only contains constants which are auto exported
+
 const title = 'Pingis';
-
-class Constants {
-  static final Constants _constants = new Constants._internal();
-
-  factory Constants() {
-    return _constants;
-  }
-
-  Constants._internal();
-
-  // Exported methods
-  static String getTitle() => title;
-}
+const kValues = {
+  'initial': 40.0,
+  'normal': 20.0,
+  'high': 10.0,
+};
+const initialRating = 800.0;

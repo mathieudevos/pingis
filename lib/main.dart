@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pingis/components/screens/home.dart';
+import 'package:pingis/components/screens/login.dart';
 import 'components/screens/intro.dart';
 
 void main() => runApp(PingisApp());
@@ -12,7 +13,7 @@ class PingisApp extends StatelessWidget {
       // debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.light,
-        appBarTheme: AppBarTheme(color: Colors.redAccent),
+        appBarTheme: AppBarTheme(color: Colors.red[800]),
         fontFamily: 'Montserrat',
         textTheme: TextTheme(
           headline: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold, color: Colors.white),
@@ -28,6 +29,8 @@ class PingisApp extends StatelessWidget {
       home: IntroScreen(),
       routes: {
         '/home': (_) => new HomeScreen(),
+        '/intro': (_) => new IntroScreen(),
+        // '/login': (_) => new LoginScreen(),
       }
     );
   }
