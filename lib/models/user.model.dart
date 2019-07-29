@@ -1,10 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 
 class User {
-  final String uuid;
+  final FirebaseUser user;
   var _eloRating, _gamesPlayed;
 
   // constructor
-  User(this.uuid);
+  User(this.user);
 
   // getters
   double getEloRating() => _eloRating;

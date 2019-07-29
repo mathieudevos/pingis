@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:pingis/auth/google.auth.dart';
 import 'package:pingis/utils/constants.dart';
 import 'intro.dart';
 
@@ -48,8 +50,18 @@ class _HomeScreenState extends State<HomeScreen> {
             _widgetOptions.elementAt(_bottomNavBarIndex),
             RaisedButton(
               child: Icon(Icons.home),
-              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => IntroScreen())),
+              onPressed: () {
+                GoogleAuthService.signOut();
+                Navigator.push(context, MaterialPageRoute(builder: (context) => IntroScreen()));
+              },
             ),
+            StreamBuilder(
+              stream: FirebaseAuth.instance.currentUser().asStream(),
+              builder: (BuildContext context, AsyncSnapshot<FirebaseUser> snapshot) {
+                if (!snapshot.hasData) { return Text('Not logged in!'); }
+                return Text(snapshot.data.toString());
+              }
+            )
           ]
         )),
         bottomNavigationBar: BottomNavigationBar(

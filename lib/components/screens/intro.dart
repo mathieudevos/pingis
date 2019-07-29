@@ -1,6 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:pingis/utils/constants.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
+import 'package:flutter/material.dart';
+import 'package:pingis/auth/google.auth.dart';
+import 'package:pingis/models/user.model.dart';
+import 'package:pingis/utils/constants.dart';
 
 class IntroScreen extends StatefulWidget {
   _IntroScreenState createState() => _IntroScreenState();
@@ -38,7 +40,11 @@ class _IntroScreenState extends State<IntroScreen> {
               flex: 1,
               child: Column(children: [
                 GoogleSignInButton(
-                  onPressed: () => Navigator.of(context).pushNamedAndRemoveUntil('/home', (_) => false),
+                  onPressed: () async {
+                    User user = await GoogleAuthService.signIn();
+                    print(user);
+                    Navigator.of(context).pushNamedAndRemoveUntil('/home', (_) => false);
+                  },
                   borderRadius: 8,
                 ),
               ])

@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:rxdart/rxdart.dart';
+import 'package:pingis/models/user.model.dart';
+// import 'package:rxdart/rxdart.dart';
 
 class GoogleAuthService {
   // Singleton creation
@@ -12,29 +13,14 @@ class GoogleAuthService {
   }
 
   // Actual constructor
-  GoogleAuthService._internal() {
-    user = Observable(_auth.onAuthStateChanged);
-
-    profile = user.switchMap((FirebaseUser u) {
-      if (u != null) {
-        return _db.collection('users').document(u.uid).snapshots().map((snap) => snap.data);
-      }
-      return Observable.just({});
-    });
-  }
+  GoogleAuthService._internal();
 
   // GoogleAuthService internals
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final Firestore _db = Firestore.instance;
+  static GoogleSignIn _googleSignIn = GoogleSignIn();
+  static FirebaseAuth _auth = FirebaseAuth.instance;
+  static Firestore _db = Firestore.instance;
 
-  Observable<FirebaseUser> user;
-  Observable<Map<String, dynamic>> profile;
-
-  PublishSubject loading = PublishSubject();
-
-  Future<FirebaseUser> googleSignIn() async {
-    loading.add(true);
+  static Future<User> signIn() async {
 
     // Sign in with Google
     GoogleSignInAccount gUser = await _googleSignIn.signIn();
@@ -47,12 +33,27 @@ class GoogleAuthService {
     );
     FirebaseUser fUser = (await _auth.signInWithCredential(creds)).user;
     print('Signed in: ' + fUser.displayName);
-    loading.add(false);
-    return fUser;
+
+    // No need to await this, let it run in the background
+    _updateUserData(fUser);
+
+    return User(fUser);
   }
 
-  void updateUserData(FirebaseUser user) async {
+  static void _updateUserData(FirebaseUser user) async {
     DocumentReference ref = _db.collection('users').document(user.uid);
+
+    if (!(await ref.get()).exists) {
+      return ref.setData({
+        'uid': user.uid,
+        'email': user.email,
+        'photoURL': user.photoUrl,
+        'displayName': user.displayName,
+        'lastSeen': DateTime.now(),
+        'firstSeen': DateTime.now(),
+        'elo': 800,
+      }, merge: true);
+    }
 
     return ref.setData({
       'uid': user.uid,
@@ -63,7 +64,7 @@ class GoogleAuthService {
     }, merge: true);
   }
 
-  void signOut() {
+  static void signOut() {
     _auth.signOut();
   }
 }

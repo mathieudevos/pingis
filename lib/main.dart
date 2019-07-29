@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pingis/components/screens/home.dart';
-import 'package:pingis/components/screens/login.dart';
+// import 'package:pingis/components/screens/login.dart';
 import 'components/screens/intro.dart';
 
 void main() => runApp(PingisApp());
