@@ -1,18 +1,16 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:pingis/auth/google.auth.dart';
+import 'package:pingis/components/views/drawers/settings.drawer.dart';
 import 'package:pingis/utils/constants.dart';
-import 'intro.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key key}) : super(key: key);
-
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   int _bottomNavBarIndex = 0;
-  static const List<Widget> _widgetOptions = <Widget>[
+  static List<Widget> _widgetOptions = <Widget>[
     Text(
       'Index 0: Profile',
     ),
@@ -36,46 +34,61 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(title: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          Image.asset('assets/pingpong-bw.png', fit: BoxFit.contain, height: 32, color: Colors.white),
-          Container(padding: const EdgeInsets.all(8.0), child: Text(title, style: Theme.of(context).textTheme.title)),
+          IconButton(
+            icon: Image.asset(
+              'assets/pingpong-bw.png',
+              fit: BoxFit.contain,
+              height: 32,
+              color: Colors.white
+            ),
+            onPressed: () => _bottomNavBarItemTapped(0),
+          ),
+          FlatButton(
+            padding: EdgeInsets.fromLTRB(2, 8, 8, 8),
+            onPressed: () => _bottomNavBarItemTapped(0),
+            child: Text(title, style: Theme.of(context).textTheme.title),
+          ),
         ]),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.settings),
+            onPressed: () => _scaffoldKey.currentState.openEndDrawer(),
+          )
+        ],
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            _widgetOptions.elementAt(_bottomNavBarIndex),
-            RaisedButton(
-              child: Icon(Icons.home),
-              onPressed: () {
-                GoogleAuthService.signOut();
-                Navigator.push(context, MaterialPageRoute(builder: (context) => IntroScreen()));
-              },
-            ),
-            StreamBuilder(
-              stream: FirebaseAuth.instance.currentUser().asStream(),
-              builder: (BuildContext context, AsyncSnapshot<FirebaseUser> snapshot) {
-                if (!snapshot.hasData) { return Text('Not logged in!'); }
-                return Text(snapshot.data.toString());
-              }
-            )
-          ]
-        )),
-        bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(icon: Icon(Icons.person), title: Text('Profile')),
-            BottomNavigationBarItem(icon: Icon(Icons.trending_up), title: Text('Elo')),
-            BottomNavigationBarItem(icon: Icon(Icons.whatshot), title: Text('Teams')),
-            BottomNavigationBarItem(icon: Icon(Icons.add), title: Text('Add')),
-          ],
-          currentIndex: _bottomNavBarIndex,
-          selectedItemColor: Colors.red[600],
-          unselectedItemColor: Colors.grey,
-          onTap: _bottomNavBarItemTapped,
-        ),
+        child: _widgetOptions.elementAt(_bottomNavBarIndex),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.person), title: Text('Profile')),
+          BottomNavigationBarItem(icon: Icon(Icons.trending_up), title: Text('Elo')),
+          BottomNavigationBarItem(icon: Icon(Icons.whatshot), title: Text('Teams')),
+          BottomNavigationBarItem(icon: Icon(Icons.add), title: Text('Add')),
+        ],
+        currentIndex: _bottomNavBarIndex,
+        selectedItemColor: Colors.red[600],
+        unselectedItemColor: Colors.grey,
+        onTap: _bottomNavBarItemTapped,
+      ),
+      endDrawer: SettingsDrawer(),
     );
   }
 }
+
+// Column(
+//   mainAxisAlignment: MainAxisAlignment.center,
+//   children: <Widget>[
+//     StreamBuilder(
+//       stream: FirebaseAuth.instance.currentUser().asStream(),
+//       builder: (BuildContext context, AsyncSnapshot<FirebaseUser> snapshot) {
+//         if (!snapshot.hasData) { return Text('Not logged in!'); }
+//         return Text(snapshot.data.toString());
+//       }
+//     )
+//   ]
+// )),

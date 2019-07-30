@@ -20,7 +20,7 @@ class GoogleAuthService {
   static FirebaseAuth _auth = FirebaseAuth.instance;
   static Firestore _db = Firestore.instance;
 
-  static Future<User> signIn() async {
+  static Future<void> signIn() async {
 
     // Sign in with Google
     GoogleSignInAccount gUser = await _googleSignIn.signIn();
@@ -36,8 +36,7 @@ class GoogleAuthService {
 
     // No need to await this, let it run in the background
     _updateUserData(fUser);
-
-    return User(fUser);
+    return null;
   }
 
   static void _updateUserData(FirebaseUser user) async {

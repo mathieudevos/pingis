@@ -9,6 +9,8 @@ class IntroScreen extends StatefulWidget {
 }
 
 class _IntroScreenState extends State<IntroScreen> {
+  var _isLoading = false;
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.redAccent,
@@ -38,16 +40,17 @@ class _IntroScreenState extends State<IntroScreen> {
             ),
             Flexible(
               flex: 1,
-              child: Column(children: [
-                GoogleSignInButton(
-                  onPressed: () async {
-                    User user = await GoogleAuthService.signIn();
-                    print(user);
-                    Navigator.of(context).pushNamedAndRemoveUntil('/home', (_) => false);
-                  },
-                  borderRadius: 8,
-                ),
-              ])
+              child: _isLoading
+                ? CircularProgressIndicator()
+                : GoogleSignInButton(
+                    onPressed: () async {
+                      _isLoading = true;
+                      await GoogleAuthService.signIn();
+                      _isLoading = false;
+                      Navigator.of(context).pushNamedAndRemoveUntil('/home', (_) => false);
+                    },
+                    borderRadius: 8,
+                  ),
             ),
             Padding(
               padding: EdgeInsets.all(8),
