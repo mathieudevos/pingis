@@ -13,11 +13,11 @@ class AuthService {
   factory AuthService () => _authService;
   AuthService._internal();
 
-  static final _auth = FirebaseAuth.instance;
-  static User _user;
-  static SigninMethod _signinMethod;
+  final _auth = FirebaseAuth.instance;
+  User _user;
+  SigninMethod _signinMethod;
 
-  static void setCurrentUser(FirebaseUser fUser, SigninMethod signinMethod) {
+  void setCurrentUser(FirebaseUser fUser, SigninMethod signinMethod) {
     _user = User(fUser);
     _signinMethod = signinMethod;
   }
@@ -26,18 +26,15 @@ class AuthService {
     return _user != null;
   }
 
-  Future<User> getCurrentUser() async {
-    _user ??= User(await _auth.currentUser());
-    return _user;
-  }
+  Future<User> getCurrentUser() async => _user ??= User(await _auth.currentUser());
 
   void signOut() {
     switch (_signinMethod) {
       case SigninMethod.google:
-        GoogleAuthService.signOut();
+        GoogleAuthService().signOut();
         break;
       case SigninMethod.firebase:
-        FirebaseAuthService.signOut();
+        FirebaseAuthService().signOut();
         break;
       default:
         _auth.signOut();

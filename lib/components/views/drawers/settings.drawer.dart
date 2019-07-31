@@ -33,7 +33,7 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
                         leading: Icon(Icons.exit_to_app),
                         title: Text('Logout'),
                         onTap: () {
-                          GoogleAuthService.signOut();
+                          GoogleAuthService().signOut();
                           Navigator.pushNamed(context, '/intro');
                         },
                       ),

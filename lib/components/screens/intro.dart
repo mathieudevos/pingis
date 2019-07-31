@@ -45,7 +45,7 @@ class _IntroScreenState extends State<IntroScreen> {
                 : GoogleSignInButton(
                     onPressed: () async {
                       _isLoading = true;
-                      await GoogleAuthService.signIn();
+                      await GoogleAuthService().signIn();
                       _isLoading = false;
                       Navigator.of(context).pushNamedAndRemoveUntil('/home', (_) => false);
                     },
