@@ -8,12 +8,12 @@ class User {
   User(this._user);
 
   // getters
-  double getEloRating() => _eloRating;
-  double getGamesPlayed() => _gamesPlayed;
+  double get eloRating => _eloRating;
+  int get gamesPlayed => _gamesPlayed;
 
   // setters
-  void setEloRating(double newRating) => _eloRating = newRating;
-  void setGamesPlayed(int newGamesPlayed) => _gamesPlayed = newGamesPlayed;
+  set eloRating(double newRating) => _eloRating = newRating;
+  set gamesPlayed(int newGamesPlayed) => _gamesPlayed = newGamesPlayed;
 
   // others
   void addGamePlayed() => _gamesPlayed++;

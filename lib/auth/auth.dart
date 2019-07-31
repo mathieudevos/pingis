@@ -26,7 +26,7 @@ class AuthService {
     return _user != null;
   }
 
-  Future<User> getCurrentUser() async => _user ??= User(await _auth.currentUser());
+  Future<User> get currentUser async => _user ??= User(await _auth.currentUser());
 
   void signOut() {
     switch (_signinMethod) {
