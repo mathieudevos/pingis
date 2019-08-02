@@ -7,10 +7,10 @@ double calculateProbablity(double ratingA, double ratingB) {
 }
 
 double obtainK(User user) {
-  if (user.getGamesPlayed() <= 30) {
+  if (user.gamesPlayed <= 30) {
     return kValues['initial'];
   }
-  if (user.getEloRating() > 2400) {
+  if (user.eloRating > 2400) {
     return kValues['high'];
   }
   return kValues['normal'];
@@ -22,15 +22,15 @@ List<double> obtainEloRatings(User userA, User userB, bool aWon) {
   double kA = obtainK(userA);
   double kB = obtainK(userB);
 
-  double pA = calculateProbablity(userA.getEloRating(), userB.getEloRating());
-  double pB = calculateProbablity(userB.getEloRating(), userA.getEloRating());
+  double pA = calculateProbablity(userA.eloRating, userB.eloRating);
+  double pB = calculateProbablity(userB.eloRating, userA.eloRating);
 
   if (aWon) {
-    rA = userA.getEloRating() + kA * (1 - pA);
-    rB = userB.getEloRating() - kB * pB;
+    rA = userA.eloRating + kA * (1 - pA);
+    rB = userB.eloRating - kB * pB;
   } else {
-    rA = userA.getEloRating() - kA * pA;
-    rB = userB.getEloRating() + kB * (1 - pB);
+    rA = userA.eloRating - kA * pA;
+    rB = userB.eloRating + kB * (1 - pB);
   }
   return [rA, rB];
 }

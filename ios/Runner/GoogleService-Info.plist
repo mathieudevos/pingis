@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>302320310287-l3jf2r5c0fiascqg1npl5ihm1mcivfnf.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.302320310287-l3jf2r5c0fiascqg1npl5ihm1mcivfnf</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>302320310287-qr70kd3hou0ujqs8vh57u74vsd3ts86l.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCkszzqtCqJzR0XAqyEoFumQKp7eBqtPNo</string>
+	<key>GCM_SENDER_ID</key>
+	<string>302320310287</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>dev.mathieudevos.pingis</string>
+	<key>PROJECT_ID</key>
+	<string>pingis-30518</string>
+	<key>STORAGE_BUCKET</key>
+	<string>pingis-30518.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:302320310287:ios:cfb918f40fea65b4</string>
+	<key>DATABASE_URL</key>
+	<string>https://pingis-30518.firebaseio.com</string>
+</dict>
+</plist>
