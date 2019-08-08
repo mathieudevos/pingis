@@ -13,11 +13,13 @@ dependencies:
   # Business logic
   equatable: ^0.3.0
   flutter_bloc: ^0.20.0
+  get_it: 1.0.3+2
+  provider: ^3.0.0+1
   rxdart: ^0.22.1
 
   # Firebase & Authentication
   firebase_analytics: ^4.0.2
-  firebase_auth: ^0.12.0
+  firebase_auth: ^0.14.0
   firebase_core: ^0.4.0+1
 
   cloud_firestore: ^0.12.9

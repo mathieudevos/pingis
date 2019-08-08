@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pingis/components/screens/home.dart';
+import 'components/screens/home.screen.dart';
 // import 'package:pingis/components/screens/login.dart';
-import 'components/screens/intro.dart';
+import 'components/screens/splash.screen.dart';
 
 void main() => runApp(PingisApp());
 
@@ -38,10 +38,10 @@ class PingisApp extends StatelessWidget {
         brightness: Brightness.dark,
         appBarTheme: AppBarTheme(color: Colors.amber[700])
       ),
-      home: IntroScreen(),
+      home: SplashScreen(),
       routes: {
-        '/home': (_) => new HomeScreen(),
-        '/intro': (_) => new IntroScreen(),
+        '/home': (_) => HomeScreen(),
+        '/splash': (_) => SplashScreen(),
         // '/login': (_) => new LoginScreen(),
       }
     );
