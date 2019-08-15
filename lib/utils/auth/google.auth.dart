@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:pingis/auth/auth.dart';
-import 'package:pingis/auth/firestore.auth.dart';
+import 'auth.dart';
+import 'firestore.auth.dart';
 
 class GoogleAuthService {
   // Singleton creation on-need basis
@@ -26,7 +26,7 @@ class GoogleAuthService {
     );
     final authResult = await _auth.signInWithCredential(creds);
     print('[INFO] Signed in with GOOGLE: ' + authResult.user.displayName);
-    AuthService().setCurrentUser(authResult.user, SigninMethod.google);
+    AuthService().setCurrentUser(authResult.user);
 
     FirestoreAuthService().updateUserData(authResult.user);
   }

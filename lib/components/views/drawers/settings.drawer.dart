@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pingis/auth/google.auth.dart';
+import 'package:pingis/utils/auth/google.auth.dart';
 
 class SettingsDrawer extends StatefulWidget {
   _SettingsDrawerState createState() => _SettingsDrawerState();

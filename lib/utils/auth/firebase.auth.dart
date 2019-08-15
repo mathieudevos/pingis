@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:pingis/auth/auth.dart';
-import 'package:pingis/auth/firestore.auth.dart';
+import 'auth.dart';
+import 'firestore.auth.dart';
 
 class FirebaseAuthService {
   // Singleton creation on-need basis
@@ -17,7 +17,7 @@ class FirebaseAuthService {
       password: password,
     );
     print('[INFO] Signed in with FIREBASE: ' + authResult.user.displayName);
-    AuthService().setCurrentUser(authResult.user, SigninMethod.firebase);
+    AuthService().setCurrentUser(authResult.user);
 
     FirestoreAuthService().updateUserData(authResult.user);
   }
