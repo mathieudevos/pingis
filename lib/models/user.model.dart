@@ -8,6 +8,9 @@ class User {
   // constructor
   User(this._user);
 
+  // static factory constructor for firebase user
+  static User createUser(FirebaseUser fUser) => (fUser == null) ? null : User(fUser);
+
   // others
   void addGamePlayed() => gamesPlayed++;
 }

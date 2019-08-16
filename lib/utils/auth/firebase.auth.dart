@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'auth.dart';
+import 'package:pingis/state/services/auth.service.dart';
 import 'firestore.auth.dart';
 
 class FirebaseAuthService {
@@ -12,24 +12,29 @@ class FirebaseAuthService {
   final _auth = FirebaseAuth.instance;
 
   Future<void> signIn(String email, String password) async {
-    final authResult = await _auth.signInWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
-    print('[INFO] Signed in with FIREBASE: ' + authResult.user.displayName);
-    AuthService().setCurrentUser(authResult.user);
-
-    FirestoreAuthService().updateUserData(authResult.user);
+    try {
+      final authResult = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      print('[INFO] Signed in with FIREBASE: ' + authResult.user.displayName);
+      FirestoreAuthService().updateUserData(authResult.user);
+    } catch (e) {
+      AuthService().error = e.toString();
+    }
   }
 
   Future<void> signUp(String email, String password) async {
-    final authResult = await _auth.createUserWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
-    print('[INFO] Signed up with FIREBASE: ' + authResult.user.displayName);
-
-    FirestoreAuthService().updateUserData(authResult.user);
+    try {
+      final authResult = await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      print('[INFO] Signed up with FIREBASE: ' + authResult.user.displayName);
+      FirestoreAuthService().updateUserData(authResult.user);
+    } catch (e) {
+      AuthService().error = e.toString();
+    }
   }
 
   void signOut() {

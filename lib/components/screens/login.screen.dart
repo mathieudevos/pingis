@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 import 'package:pingis/utils/constants.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -10,23 +11,23 @@ class LoginScreen extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            stops: const [0.1, 0.5, 0.7, 0.9],
+            stops: const [0.1, 0.175, 0.2, 0.25],
             colors: [
-              Colors.red[800],
-              Colors.red[600],
+              Colors.red[700],
               Colors.red[500],
               Colors.red[300],
+              Colors.grey[200],
             ],
           ),
         ),
         child: Stack(
           children: [
             Center(child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Flexible(
-                  flex: 6,
-                  child: Column(
+                Padding(
+                  padding: const EdgeInsets.only(top: 30, bottom: 75),
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset('assets/pingpong-cloud.png', fit: BoxFit.contain, height: 100),
@@ -34,9 +35,9 @@ class LoginScreen extends StatelessWidget {
                     ]
                   ),
                 ),
-                const Flexible(
-                  flex: 1,
-                  child: const CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.white)),
+                GoogleSignInButton(
+                  borderRadius: 5,
+                  darkMode: false,
                 ),
               ],
             )),

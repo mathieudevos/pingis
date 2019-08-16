@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'auth.dart';
+import 'package:pingis/state/services/auth.service.dart';
 import 'firestore.auth.dart';
 
 class GoogleAuthService {
@@ -14,21 +14,22 @@ class GoogleAuthService {
   final _auth = FirebaseAuth.instance;
 
   Future<void> signIn() async {
+    try {
+      // Sign in with Google
+      final gUser = await _googleSignIn.signIn();
+      final gAuth = await gUser.authentication;
 
-    // Sign in with Google
-    final gUser = await _googleSignIn.signIn();
-    final gAuth = await gUser.authentication;
-
-    // Push google auth to Firebase
-    final creds = GoogleAuthProvider.getCredential(
-      accessToken: gAuth.accessToken,
-      idToken: gAuth.idToken,
-    );
-    final authResult = await _auth.signInWithCredential(creds);
-    print('[INFO] Signed in with GOOGLE: ' + authResult.user.displayName);
-    AuthService().setCurrentUser(authResult.user);
-
-    FirestoreAuthService().updateUserData(authResult.user);
+      // Push google auth to Firebase
+      final creds = GoogleAuthProvider.getCredential(
+        accessToken: gAuth.accessToken,
+        idToken: gAuth.idToken,
+      );
+      final authResult = await _auth.signInWithCredential(creds);
+      print('[INFO] Signed in with GOOGLE: ' + authResult.user.displayName);
+      FirestoreAuthService().updateUserData(authResult.user);
+    } catch (e) {
+      AuthService().error = e.toString();
+    }
   }
 
   void signOut() {
