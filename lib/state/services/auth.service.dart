@@ -26,7 +26,10 @@ class AuthService with ChangeNotifier {
       .listen(_onAuthStateChanged);
   }
 
-  AuthenticationStatus get status => _status;
+  AuthenticationStatus get status {
+    print('[INFO] get status: $_status');
+    return _status ;
+  }
   String get error => _error;
   User get user => _user;
 

@@ -50,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
           FlatButton(
             padding: EdgeInsets.fromLTRB(2, 8, 8, 8),
             onPressed: () => _bottomNavBarItemTapped(0),
-            child: Text(title, style: Theme.of(context).textTheme.title),
+            child: Text(Constants.title, style: Theme.of(context).textTheme.title),
           ),
         ]),
         actions: <Widget>[

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pingis/components/views/backgrounds/fullpage.background.dart';
 import 'package:pingis/utils/constants.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -6,19 +7,7 @@ class SplashScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.redAccent,
       body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            stops: const [0.1, 0.5, 0.7, 0.9],
-            colors: [
-              Colors.red[800],
-              Colors.red[600],
-              Colors.red[500],
-              Colors.red[300],
-            ],
-          ),
-        ),
+        decoration: FULLPAGE_BACKGROUND,
         child: Stack(
           children: [
             Center(child: Column(
@@ -30,7 +19,7 @@ class SplashScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset('assets/pingpong-cloud.png', fit: BoxFit.contain, height: 100),
-                      Container(padding: const EdgeInsets.all(12.0), child: Text(title, style: Theme.of(context).textTheme.headline))
+                      Container(padding: const EdgeInsets.all(12.0), child: Text(Constants.title, style: Theme.of(context).textTheme.headline))
                     ]
                   ),
                 ),
@@ -44,7 +33,7 @@ class SplashScreen extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: Padding(
                 padding: const EdgeInsets.all(10),
-                child: Text('Created by Mathieu Devos', style: TextStyle(fontSize: 9, color: Colors.red[100]))
+                child: Text('Created by ${Constants.author}', style: TextStyle(fontSize: 9, color: Colors.red[100]))
               ),
             ),
           ]

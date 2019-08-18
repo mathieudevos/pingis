@@ -8,22 +8,22 @@ double calculateProbablity(double ratingA, double ratingB) {
 
 double obtainK(User user) {
   if (user.gamesPlayed <= 30) {
-    return kValues['initial'];
+    return Constants.kValues['initial'];
   }
   if (user.eloRating > 2400) {
-    return kValues['high'];
+    return Constants.kValues['high'];
   }
-  return kValues['normal'];
+  return Constants.kValues['normal'];
 }
 
 List<double> obtainEloRatings(User userA, User userB, bool aWon) {
   double rA, rB;
 
-  double kA = obtainK(userA);
-  double kB = obtainK(userB);
+  final double kA = obtainK(userA);
+  final double kB = obtainK(userB);
 
-  double pA = calculateProbablity(userA.eloRating, userB.eloRating);
-  double pB = calculateProbablity(userB.eloRating, userA.eloRating);
+  final double pA = calculateProbablity(userA.eloRating, userB.eloRating);
+  final double pB = calculateProbablity(userB.eloRating, userA.eloRating);
 
   if (aWon) {
     rA = userA.eloRating + kA * (1 - pA);

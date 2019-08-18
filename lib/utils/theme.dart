@@ -7,14 +7,19 @@ final THEME_LIGHT = ThemeData(
     headline: TextStyle(
       fontSize: 72.0,
       fontStyle: FontStyle.normal,
-      color: Colors.white,
+      color: Colors.grey[800],
       fontFamily: 'Lobster',
     ),
     title: TextStyle(
-      fontSize: 32.0,
-      // fontStyle: FontStyle.italic,
-      color: Colors.white,
-      fontFamily: 'Lobster'
+      color: Colors.grey[800],
+      fontFamily: 'Montserrate',
+      fontSize: 18.0,
+      letterSpacing: 0.6,
+    ),
+    subtitle: TextStyle(
+      color: Colors.grey[800],
+      fontFamily: 'Montserrate',
+      fontSize: 12.0,
     ),
     body1: TextStyle(
       fontSize: 11.0,
@@ -28,3 +33,8 @@ final THEME_DARK = ThemeData(
   brightness: Brightness.dark,
   appBarTheme: AppBarTheme(color: Colors.amber[700])
 );
+
+final GRADIENT_COLORS = [
+  Colors.amber[400],
+  Colors.red[300],
+];
