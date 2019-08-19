@@ -1,29 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:pingis/state/services/auth.service.dart';
 
 class LoginForm extends StatelessWidget {
+  String _validateEmail(String value) {
+    const Pattern pattern =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    final regex = RegExp(pattern);
+    if (!regex.hasMatch(value)) {
+      return 'Enter a valid Email';
+    }
+    return null;
+  }
+
+  String _validatePassword(String value) {
+    if (value.length < 8) {
+      return 'Minimum password length is 8';
+    }
+    return null;
+  }
+
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
     return Container(
-      child: Container(
-        width: double.infinity,
-        height: 250,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(8),
-          boxShadow: [
-            const BoxShadow(
-              color: Colors.black12,
-              offset: const Offset(0, 15),
-              blurRadius: 15,
-            ),
-            const BoxShadow(
-              color: Colors.black12,
-              offset: const Offset(0, -10),
-              blurRadius: 10,
-            ),
-          ]
-        ),
+      width: double.infinity,
+      height: 230,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: const [
+          BoxShadow(
+            color: Colors.black12,
+            offset: const Offset(0, 15),
+            blurRadius: 15,
+          ),
+          BoxShadow(
+            color: Colors.black12,
+            offset: const Offset(0, -10),
+            blurRadius: 10,
+          ),
+        ]
+      ),
+      child: Form(
+        key: AuthService().loginFormKey,
         child: Padding(
           padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
           child: Stack(
@@ -41,7 +60,10 @@ class LoginForm extends StatelessWidget {
                       hintStyle: textTheme.body1.copyWith(color: Colors.grey),
                       icon: Icon(Icons.email, color: Colors.black87),
                     ),
-                    keyboardType: TextInputType.text,
+                    keyboardType: TextInputType.emailAddress,
+                    onChanged: (input) => AuthService().email = input,
+                    autovalidate: AuthService().autoValidating,
+                    validator: _validateEmail,
                   ),
                   Divider(),
                   TextFormField(
@@ -54,6 +76,9 @@ class LoginForm extends StatelessWidget {
                     ),
                     keyboardType: TextInputType.text,
                     obscureText: true,
+                    onChanged: (input) => AuthService().password = input,
+                    autovalidate: AuthService().autoValidating,
+                    validator: _validatePassword,
                   ),
                 ],
               ),

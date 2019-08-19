@@ -12,7 +12,7 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
         Column(children: [
           Expanded(
             child: ListView(
-              padding: EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
               children: <Widget>[
                 ListTile(
                   title: Text('Username'),
@@ -31,7 +31,7 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
                       Divider(),
                       ListTile(
                         leading: Icon(Icons.exit_to_app),
-                        title: Text('Logout'),
+                        title: const Text('Logout'),
                         onTap: () {
                           GoogleAuthService().signOut();
                           Navigator.pushNamed(context, '/intro');
@@ -39,7 +39,7 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
                       ),
                       ListTile(
                         leading: Icon(Icons.info_outline),
-                        title: Text('About'),
+                        title: const Text('About'),
                       ),
                     ],
                   )

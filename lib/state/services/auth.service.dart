@@ -12,6 +12,10 @@ enum AuthenticationStatus {
 }
 
 class AuthService with ChangeNotifier {
+  final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
+  String email, password;
+  bool autoValidating = false;
+
   AuthenticationStatus _status = AuthenticationStatus.Unitialized;
   String _error;
   FirebaseAuth _auth;
@@ -40,10 +44,20 @@ class AuthService with ChangeNotifier {
 
   void clearError() => _error = null;
 
+  void signInWithEmailPassword() {
+    if (loginFormKey.currentState.validate()) {
+      print('$email - $password');
+    } else {
+      autoValidating = true;
+      notifyListeners();
+    }
+  }
+
   void signOut() {
     GoogleAuthService()?.signOut();
     FirebaseAuthService()?.signOut();
     print('[INFO] Signed out');
+    autoValidating = false;
   }
 
   Future<void> _onAuthStateChanged(User user) async {

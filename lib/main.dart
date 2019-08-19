@@ -16,7 +16,7 @@ void main() => runApp(
 );
 
 class PingisApp extends StatelessWidget {
-  // This widget is the root of your application.
+  // Root widget
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
