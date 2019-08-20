@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:pingis/state/modules/login_form.module.dart';
 import 'package:pingis/state/services/auth.service.dart';
 
 class LoginForm extends StatelessWidget {
@@ -42,7 +43,7 @@ class LoginForm extends StatelessWidget {
         ]
       ),
       child: Form(
-        key: AuthService().loginFormKey,
+        key: LoginFormModule().loginFormKey,
         child: Padding(
           padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
           child: Stack(
@@ -61,8 +62,8 @@ class LoginForm extends StatelessWidget {
                       icon: Icon(Icons.email, color: Colors.black87),
                     ),
                     keyboardType: TextInputType.emailAddress,
-                    onChanged: (input) => AuthService().email = input,
-                    autovalidate: AuthService().autoValidating,
+                    onChanged: (input) => LoginFormModule().email = input,
+                    autovalidate: LoginFormModule().autoValidating,
                     validator: _validateEmail,
                   ),
                   Divider(),
@@ -76,8 +77,8 @@ class LoginForm extends StatelessWidget {
                     ),
                     keyboardType: TextInputType.text,
                     obscureText: true,
-                    onChanged: (input) => AuthService().password = input,
-                    autovalidate: AuthService().autoValidating,
+                    onChanged: (input) => LoginFormModule().password = input,
+                    autovalidate: LoginFormModule().autoValidating,
                     validator: _validatePassword,
                   ),
                 ],

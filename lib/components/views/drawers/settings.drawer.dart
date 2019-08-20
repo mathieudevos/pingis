@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pingis/utils/auth/google.auth.dart';
+import 'package:pingis/state/services/auth.service.dart';
 
 class SettingsDrawer extends StatefulWidget {
   _SettingsDrawerState createState() => _SettingsDrawerState();
@@ -15,7 +15,7 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
               padding: const EdgeInsets.all(8),
               children: <Widget>[
                 ListTile(
-                  title: Text('Username'),
+                  title: const Text('Username'),
                 ),
                 Divider(),
               ],
@@ -33,8 +33,8 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
                         leading: Icon(Icons.exit_to_app),
                         title: const Text('Logout'),
                         onTap: () {
-                          GoogleAuthService().signOut();
-                          Navigator.pushNamed(context, '/intro');
+                          AuthService().signOut(context);
+                          Navigator.pushNamed(context, '/login');
                         },
                       ),
                       ListTile(

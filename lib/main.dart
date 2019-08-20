@@ -6,14 +6,14 @@ import 'components/screens/login.screen.dart';
 import 'components/screens/splash.screen.dart';
 import 'utils/theme.dart';
 
-void main() => runApp(
-  MaterialApp(
-    debugShowCheckedModeBanner: false,
-    theme: THEME_LIGHT,
-    darkTheme: THEME_DARK,
-    home: PingisApp(),
-  )
-);
+
+void main() => runApp(MaterialApp(
+  debugShowCheckedModeBanner: false,
+  theme: THEME_LIGHT,
+  darkTheme: THEME_DARK,
+  home: PingisApp(),
+));
+
 
 class PingisApp extends StatelessWidget {
   // Root widget
@@ -21,9 +21,10 @@ class PingisApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       builder: (_) => AuthService(),
-      child: Consumer<AuthService>(
-        builder: (context, authService, _) {
-          switch (authService.status) {
+      child: Selector<AuthService, AuthenticationStatus>(
+        selector: (_, authService) => authService.status,
+        builder: (_, status, __) {
+          switch (status) {
             case AuthenticationStatus.Unitialized:
               return SplashScreen();
             case AuthenticationStatus.Authenticating:

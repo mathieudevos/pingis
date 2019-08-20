@@ -11,20 +11,21 @@ enum AuthenticationStatus {
   Unitialized,
 }
 
+enum SignInMethod {
+  Facebook,
+  Firebase,
+  Google,
+  LinkedIn,
+  Twitter,
+}
+
 class AuthService with ChangeNotifier {
-  final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
-  String email, password;
-  bool autoValidating = false;
-
+  final FirebaseAuth _auth;
   AuthenticationStatus _status = AuthenticationStatus.Unitialized;
-  String _error;
-  FirebaseAuth _auth;
   User _user;
+  SignInMethod method;
 
-  // Singleton creation
-  static final AuthService _authService = AuthService._internal();
-  factory AuthService () => _authService;
-  AuthService._internal() : _auth = FirebaseAuth.instance {
+  AuthService() : _auth = FirebaseAuth.instance {
     _auth.onAuthStateChanged
       .map(User.createUser)
       .listen(_onAuthStateChanged);
@@ -34,30 +35,30 @@ class AuthService with ChangeNotifier {
     print('[INFO] get status: $_status');
     return _status ;
   }
-  String get error => _error;
+
   User get user => _user;
 
-  void set error(String msg) {
-    _error = msg;
-    notifyListeners();
-  }
-
-  void clearError() => _error = null;
-
-  void signInWithEmailPassword() {
-    if (loginFormKey.currentState.validate()) {
-      print('$email - $password');
-    } else {
-      autoValidating = true;
-      notifyListeners();
+  void signOut(BuildContext context) {
+    switch (method) {
+      case SignInMethod.Facebook:
+        /* todo: implement */
+        break;
+      case SignInMethod.Firebase:
+        FirebaseAuthService(context).signOut();
+        break;
+      case SignInMethod.Google:
+        GoogleAuthService(context).signOut();
+        break;
+      case SignInMethod.LinkedIn:
+        /* todo: implement */
+        break;
+      case SignInMethod.Twitter:
+        /* todo: implement */
+        break;
+      default:
+        print('[ERROR] Attempted to sign out before signed in (no method)');
     }
-  }
-
-  void signOut() {
-    GoogleAuthService()?.signOut();
-    FirebaseAuthService()?.signOut();
     print('[INFO] Signed out');
-    autoValidating = false;
   }
 
   Future<void> _onAuthStateChanged(User user) async {

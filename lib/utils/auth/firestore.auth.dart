@@ -2,12 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FirestoreAuthService {
-  // Singleton creation
-  static final FirestoreAuthService _firestoreAuthService = FirestoreAuthService._internal();
-  factory FirestoreAuthService () => _firestoreAuthService;
-  FirestoreAuthService._internal();
-
-  // FirestoreAuthService internals
   final Firestore _db = Firestore.instance;
 
   void updateUserData(FirebaseUser user) async {
