@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pingis/components/snackbarProvider.dart';
 import 'firestore.auth.dart';
 
@@ -33,7 +34,7 @@ class FirebaseAuthService {
       print('[INFO] Signed up with FIREBASE: ' + authResult.user.displayName);
       FirestoreAuthService().updateUserData(authResult.user);
     } catch (e) {
-      showError(_context, e);
+      showError(_context, e.toString());
     }
   }
 

@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:pingis/utils/auth/firebase.auth.dart';
 
-class LoginFormModule with ChangeNotifier {
+class LoginFormNotifier with ChangeNotifier {
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   String email, password;
   bool _autoValidating = false;
-
-  // Lazy singleton
-  static LoginFormModule _loginFormModule;
-  factory LoginFormModule() => _loginFormModule ??= LoginFormModule._internal();
-  LoginFormModule._internal();
 
   bool get autoValidating => _autoValidating;
 
@@ -17,9 +13,9 @@ class LoginFormModule with ChangeNotifier {
     notifyListeners();
   }
 
-  void signInWithEmailPassword() {
+  void signInWithEmailPassword(BuildContext context) {
     if (loginFormKey.currentState.validate()) {
-      print('$email - $password');
+      FirebaseAuthService(context).signIn(email, password);
     } else {
       autoValidating = true;
       notifyListeners();

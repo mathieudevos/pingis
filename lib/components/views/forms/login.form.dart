@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:pingis/state/modules/login_form.module.dart';
-import 'package:pingis/state/services/auth.service.dart';
+import 'package:pingis/state/notifiers/login_form.notifier.dart';
+import 'package:provider/provider.dart';
 
 class LoginForm extends StatelessWidget {
   String _validateEmail(String value) {
@@ -42,58 +42,62 @@ class LoginForm extends StatelessWidget {
           ),
         ]
       ),
-      child: Form(
-        key: LoginFormModule().loginFormKey,
-        child: Padding(
-          padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
-          child: Stack(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+      child: Consumer<LoginFormNotifier>(
+        builder: (context, loginFormNotifier, _) {
+          return Form(
+            key: loginFormNotifier.loginFormKey,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
+              child: Stack(
                 children: [
-                  Text('Login', style: textTheme.title),
-                  const SizedBox(height: 20),
-                  TextFormField(
-                    style: textTheme.title.copyWith(color: Colors.black87, letterSpacing: 1.2),
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Email',
-                      hintStyle: textTheme.body1.copyWith(color: Colors.grey),
-                      icon: Icon(Icons.email, color: Colors.black87),
-                    ),
-                    keyboardType: TextInputType.emailAddress,
-                    onChanged: (input) => LoginFormModule().email = input,
-                    autovalidate: LoginFormModule().autoValidating,
-                    validator: _validateEmail,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Login', style: textTheme.title),
+                      const SizedBox(height: 20),
+                      TextFormField(
+                        style: textTheme.title.copyWith(color: Colors.black87, letterSpacing: 1.2),
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Email',
+                          hintStyle: textTheme.body1.copyWith(color: Colors.grey),
+                          icon: Icon(Icons.email, color: Colors.black87),
+                        ),
+                        keyboardType: TextInputType.emailAddress,
+                        onChanged: (input) => loginFormNotifier.email = input,
+                        autovalidate: loginFormNotifier.autoValidating,
+                        validator: _validateEmail,
+                      ),
+                      Divider(),
+                      TextFormField(
+                        style: textTheme.title.copyWith(color: Colors.black87, letterSpacing: 1.2),
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Password',
+                          hintStyle: textTheme.body1.copyWith(color: Colors.grey),
+                          icon: Icon(Icons.lock, color: Colors.black87),
+                        ),
+                        keyboardType: TextInputType.text,
+                        obscureText: true,
+                        onChanged: (input) => loginFormNotifier.password = input,
+                        autovalidate: loginFormNotifier.autoValidating,
+                        validator: _validatePassword,
+                      ),
+                    ],
                   ),
-                  Divider(),
-                  TextFormField(
-                    style: textTheme.title.copyWith(color: Colors.black87, letterSpacing: 1.2),
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Password',
-                      hintStyle: textTheme.body1.copyWith(color: Colors.grey),
-                      icon: Icon(Icons.lock, color: Colors.black87),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: FlatButton(
+                      onPressed: () => { /* todo: implement */ },
+                      padding: EdgeInsets.zero,
+                      child: Text('Forgot Password?', style: textTheme.body1.copyWith(color: Colors.red[800]))
                     ),
-                    keyboardType: TextInputType.text,
-                    obscureText: true,
-                    onChanged: (input) => LoginFormModule().password = input,
-                    autovalidate: LoginFormModule().autoValidating,
-                    validator: _validatePassword,
                   ),
-                ],
-              ),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: FlatButton(
-                  onPressed: () => { /* todo: implement */ },
-                  padding: EdgeInsets.zero,
-                  child: Text('Forgot Password?', style: textTheme.body1.copyWith(color: Colors.red[800]))
-                ),
-              ),
-            ]
-          )
-        ),
+                ]
+              )
+            ),
+          );
+        }
       ),
     );
   }
