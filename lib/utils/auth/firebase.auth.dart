@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:pingis/components/snackbarProvider.dart';
 import 'firestore.auth.dart';
 
@@ -25,14 +24,14 @@ class FirebaseAuthService {
     }
   }
 
-  Future<void> signUp(String email, String password) async {
+  Future<void> signUp(String username, String email, String password) async {
     try {
       final authResult = await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
       print('[INFO] Signed up with FIREBASE: ' + authResult.user.displayName);
-      FirestoreAuthService().updateUserData(authResult.user);
+      FirestoreAuthService().updateUserData(authResult.user, username: username);
     } catch (e) {
       showError(_context, e.toString());
     }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pingis/state/services/auth.service.dart';
 import 'package:provider/provider.dart';
 import 'components/screens/home.screen.dart';
-import 'components/screens/login.screen.dart';
+import 'components/screens/auth.screen.dart';
 import 'components/screens/splash.screen.dart';
 import 'utils/theme.dart';
 
@@ -29,7 +29,7 @@ class PingisApp extends StatelessWidget {
               return SplashScreen();
             case AuthenticationStatus.Authenticating:
             case AuthenticationStatus.Unauthenticated:
-              return LoginScreen();
+              return AuthScreen();
             case AuthenticationStatus.Authenticated:
               return HomeScreen();
             default:

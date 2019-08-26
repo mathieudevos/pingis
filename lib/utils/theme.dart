@@ -7,17 +7,17 @@ final THEME_LIGHT = ThemeData(
     headline: TextStyle(
       fontSize: 72.0,
       fontStyle: FontStyle.normal,
-      color: Colors.grey[800],
+      color: Colors.grey[850],
       fontFamily: 'Lobster',
     ),
     title: TextStyle(
-      color: Colors.grey[800],
+      color: Colors.grey[850],
       fontFamily: 'Montserrate',
       fontSize: 18.0,
       letterSpacing: 0.6,
     ),
     subtitle: TextStyle(
-      color: Colors.grey[800],
+      color: Colors.grey[850],
       fontFamily: 'Montserrate',
       fontSize: 12.0,
     ),
@@ -27,6 +27,7 @@ final THEME_LIGHT = ThemeData(
     ),
   ),
   buttonColor: Colors.grey[100],
+  primaryColor: Colors.grey[850],
 );
 
 final THEME_DARK = ThemeData(

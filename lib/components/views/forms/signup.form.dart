@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:pingis/state/notifiers/login_form.notifier.dart';
+import 'package:pingis/state/notifiers/signup_form.notifier.dart';
 import 'package:pingis/utils/validators.dart';
 import 'package:provider/provider.dart';
 
-class LoginForm extends StatelessWidget {
+class SignupForm extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
     return Container(
@@ -25,17 +25,31 @@ class LoginForm extends StatelessWidget {
           ),
         ]
       ),
-      child: Consumer<LoginFormNotifier>(
-        builder: (context, loginFormNotifier, _) {
+      child: Consumer<SignupFormNotifier>(
+        builder: (context, signupFormNotifier, _) {
           return Form(
-            key: loginFormNotifier.loginFormKey,
+            key: signupFormNotifier.signupFormKey,
             child: Padding(
-              padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Login', style: textTheme.title),
+                  Text('Sign up', style: textTheme.title),
                   const SizedBox(height: 20),
+                  TextFormField(
+                    style: textTheme.title.copyWith(color: Colors.black87, letterSpacing: 1.2),
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'Username / Displayname',
+                      hintStyle: textTheme.body1.copyWith(color: Colors.grey),
+                      icon: Icon(Icons.person, color: Colors.black87),
+                    ),
+                    keyboardType: TextInputType.text,
+                    onChanged: (input) => signupFormNotifier.username = input,
+                    autovalidate: signupFormNotifier.autoValidating,
+                    validator: validateUsername,
+                  ),
+                  Divider(),
                   TextFormField(
                     style: textTheme.title.copyWith(color: Colors.black87, letterSpacing: 1.2),
                     decoration: InputDecoration(
@@ -45,8 +59,8 @@ class LoginForm extends StatelessWidget {
                       icon: Icon(Icons.email, color: Colors.black87),
                     ),
                     keyboardType: TextInputType.emailAddress,
-                    onChanged: (input) => loginFormNotifier.email = input,
-                    autovalidate: loginFormNotifier.autoValidating,
+                    onChanged: (input) => signupFormNotifier.email = input,
+                    autovalidate: signupFormNotifier.autoValidating,
                     validator: validateEmail,
                   ),
                   Divider(),
@@ -60,19 +74,9 @@ class LoginForm extends StatelessWidget {
                     ),
                     keyboardType: TextInputType.text,
                     obscureText: true,
-                    onChanged: (input) => loginFormNotifier.password = input,
-                    autovalidate: loginFormNotifier.autoValidating,
+                    onChanged: (input) => signupFormNotifier.password = input,
+                    autovalidate: signupFormNotifier.autoValidating,
                     validator: validatePassword,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      FlatButton(
-                        onPressed: () => { /* todo: implement */ },
-                        padding: EdgeInsets.zero,
-                        child: Text('Forgot Password?', style: textTheme.body1.copyWith(color: Colors.red[800]))
-                      ),
-                    ]
                   ),
                 ],
               ),

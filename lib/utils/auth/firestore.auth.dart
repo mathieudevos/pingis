@@ -4,7 +4,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class FirestoreAuthService {
   final Firestore _db = Firestore.instance;
 
-  void updateUserData(FirebaseUser user) async {
+  // Singleton
+  static final FirestoreAuthService _firestoreAuthService = FirestoreAuthService._internal();
+  factory FirestoreAuthService() => _firestoreAuthService;
+  FirestoreAuthService._internal();
+
+  void updateUserData(FirebaseUser user, { String username }) async {
     final DocumentReference ref = _db.collection('users').document(user.uid);
 
     if (!(await ref.get()).exists) {
@@ -12,7 +17,7 @@ class FirestoreAuthService {
         'uid': user.uid,
         'email': user.email,
         'photoURL': user.photoUrl,
-        'displayName': user.displayName,
+        'displayName': username ?? user.displayName,
         'lastSeen': DateTime.now(),
         'firstSeen': DateTime.now(),
         'elo': 800,

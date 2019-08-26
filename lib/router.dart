@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pingis/components/screens/home.screen.dart';
-import 'package:pingis/components/screens/login.screen.dart';
+import 'package:pingis/components/screens/auth.screen.dart';
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -12,7 +12,7 @@ class Router {
         );
       case '/login':
         return MaterialPageRoute(
-          builder: (_) => LoginScreen(),
+          builder: (_) => AuthScreen(),
         );
       default:
         return MaterialPageRoute(

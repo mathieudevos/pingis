@@ -7,16 +7,15 @@ import 'package:pingis/utils/auth/google.auth.dart';
 enum AuthenticationStatus {
   Authenticated,
   Authenticating,
+  ForgotPassword,
+  Signup,
   Unauthenticated,
   Unitialized,
 }
 
 enum SignInMethod {
-  Facebook,
   Firebase,
   Google,
-  LinkedIn,
-  Twitter,
 }
 
 class AuthService with ChangeNotifier {
@@ -32,28 +31,23 @@ class AuthService with ChangeNotifier {
   }
 
   AuthenticationStatus get status {
-    print('[INFO] get status: $_status');
+    print('[INFO] authentication.status: $_status');
     return _status ;
+  }
+  void set status(AuthenticationStatus authenticationStatus) {
+    _status = authenticationStatus;
+    notifyListeners();
   }
 
   User get user => _user;
 
   void signOut(BuildContext context) {
     switch (method) {
-      case SignInMethod.Facebook:
-        /* todo: implement */
-        break;
       case SignInMethod.Firebase:
         FirebaseAuthService(context).signOut();
         break;
       case SignInMethod.Google:
         GoogleAuthService(context).signOut();
-        break;
-      case SignInMethod.LinkedIn:
-        /* todo: implement */
-        break;
-      case SignInMethod.Twitter:
-        /* todo: implement */
         break;
       default:
         print('[ERROR] Attempted to sign out before signed in (no method)');
