@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pingis/components/views/buttons/border.button.dart';
-import 'package:pingis/components/views/buttons/filled.button.dart';
 import 'package:pingis/components/views/buttons/login.buttons.dart';
 import 'package:pingis/components/views/forms/login.form.dart';
 import 'package:pingis/components/views/forms/signup.form.dart';
@@ -26,7 +24,7 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
   @override
   void initState() {
     super.initState();
-    controller = AnimationController(duration: Duration(seconds: 3), vsync: this)..forward();
+    controller = AnimationController(duration: const Duration(seconds: 3), vsync: this)..forward();
     titleOffset = Tween(begin: const Offset(0, -1), end: Offset.zero).animate(CurvedAnimation(
       parent: controller,
       curve: Interval(0.0, 0.4, curve: Curves.ease)));

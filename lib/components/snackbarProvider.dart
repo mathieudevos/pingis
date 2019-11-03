@@ -1,18 +1,26 @@
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 void showError(BuildContext context, dynamic error) {
-  final scaffold = Scaffold.of(context, nullOk: true);
-  if (scaffold == null) {
-    print('[ERROR] Attempted to show error when no scaffold is present.\nError: $error');
-  }
-  final snackbar = SnackBar(
-    content: Text(
-      _parseError(error),
-      style: Theme.of(context).textTheme.body1.copyWith(color: Colors.white)),
-    backgroundColor: Colors.red,
+  Flushbar flushbar;
+  flushbar = Flushbar(
+    titleText: Text('Error occured', style: TextStyle(color: Colors.red[600])),
+    messageText: Text(_parseError(error), style: TextStyle(color: Colors.red[500])),
+    icon: Icon(Icons.error_outline, color: Colors.red[600]),
+    isDismissible: true,
+    dismissDirection: FlushbarDismissDirection.HORIZONTAL,
+    mainButton: FlatButton(
+      onPressed: () { flushbar.dismiss(true); },
+      child: Icon(Icons.cancel, color: Colors.red[500]),
+    ),
+    flushbarPosition: FlushbarPosition.TOP,
+    borderRadius: 8.0,
+    flushbarStyle: FlushbarStyle.FLOATING,
+    margin: const EdgeInsets.all(8.0),
   );
-  scaffold.showSnackBar(snackbar);
+
+  flushbar.show(context);
 }
 
 String _parseError(dynamic error) {
