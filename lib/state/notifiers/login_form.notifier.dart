@@ -9,6 +9,7 @@ class LoginFormNotifier with ChangeNotifier {
   bool get autoValidating => _autoValidating;
 
   void set autoValidating(bool input) {
+    print('[INFO] LoginFormNotifier.autoValidating: $input');
     _autoValidating = input;
     notifyListeners();
   }

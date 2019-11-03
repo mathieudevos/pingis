@@ -13,36 +13,17 @@ class LoginButtons extends StatelessWidget {
     final loginFormNotifier = Provider.of<LoginFormNotifier>(context);
     final signupFormNotifier = Provider.of<SignupFormNotifier>(context);
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 15),
-          child: BorderButton(
-            height: 40,
-            width: 120,
-            child: Text(
-              authService.status != AuthenticationStatus.Signup ? 'SIGN UP' : 'CANCEL',
-              style: textTheme.title
-            ),
-            onPressed: () {
-              authService.method = SignInMethod.Firebase;
-              if (authService.status != AuthenticationStatus.Signup) {
-                authService.status = AuthenticationStatus.Signup;
-              } else {
-                authService.status = AuthenticationStatus.Unauthenticated;
-              }
-            },
-          )
-        ),
-        Padding(
-          padding: const EdgeInsets.only(right: 15),
-          child: FilledButton(
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FilledButton(
             height: 40,
             width: 120,
             child: Text(
               authService.status != AuthenticationStatus.Signup ? 'SIGN IN' : 'SIGN UP',
-              style: textTheme.title.copyWith(color: Colors.white)
+              style: textTheme.title.copyWith(color: Colors.white),
             ),
             onPressed: () {
               authService.method = SignInMethod.Firebase;
@@ -53,8 +34,8 @@ class LoginButtons extends StatelessWidget {
               }
             },
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

@@ -93,20 +93,17 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
                 ),
                 SlideTransition(
                   position: authFormOffset,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 15, right: 15, top: 20, bottom: 20),
-                    child: AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 500),
-                      transitionBuilder: (Widget child, Animation<double> animation) {
-                        return ScaleTransition(child: child, scale: animation);
-                      },
-                      child: _authFormProvider(authService.status)
-                    ),
+                  child: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 500),
+                    transitionBuilder: (Widget child, Animation<double> animation) {
+                      final posOffsetTransition = Tween(begin: const Offset(1.0, 0.0), end: Offset.zero).animate(animation);
+                      return SlideTransition(
+                        child: child,
+                        position: posOffsetTransition,
+                      );
+                    },
+                    child: _authFormProvider(authService.status)
                   ),
-                ),
-                SlideTransition(
-                  position: authButtonsOffset,
-                  child: LoginButtons(),
                 ),
                 Expanded(
                   child: SlideTransition(
