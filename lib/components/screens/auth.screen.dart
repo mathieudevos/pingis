@@ -6,6 +6,7 @@ import 'package:pingis/components/views/icons/social.icons.dart';
 import 'package:pingis/state/notifiers/login_form.notifier.dart';
 import 'package:pingis/state/notifiers/signup_form.notifier.dart';
 import 'package:pingis/state/services/auth.service.dart';
+import 'package:pingis/utils/auth/google.auth.dart';
 import 'package:pingis/utils/constants.dart';
 import 'package:provider/provider.dart';
 
@@ -115,7 +116,7 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
                           elevation: 3,
                           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-                          onPressed: () => { /* todo: implement */},
+                          onPressed: () => GoogleAuthService(context).signIn(),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             mainAxisSize: MainAxisSize.min,

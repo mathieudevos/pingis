@@ -28,7 +28,7 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
                 child: Container(
                   child: Column(
                     children: <Widget>[
-                      Divider(),
+                      const Divider(),
                       ListTile(
                         leading: Icon(Icons.exit_to_app),
                         title: const Text('Logout'),
