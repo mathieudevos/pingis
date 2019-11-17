@@ -19,12 +19,18 @@ enum SignInMethod {
 }
 
 class AuthService with ChangeNotifier {
-  final FirebaseAuth _auth;
+  static final AuthService _instance = AuthService._internal();
+
+  final _auth = FirebaseAuth.instance;
   AuthenticationStatus _status = AuthenticationStatus.Unitialized;
   User _user;
   SignInMethod method;
 
-  AuthService() : _auth = FirebaseAuth.instance {
+  factory AuthService() {
+    return _instance;
+  }
+
+  AuthService._internal() {
     _auth.onAuthStateChanged
       .map(User.createUser)
       .listen(_onAuthStateChanged);

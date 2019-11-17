@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pingis/router.dart';
 import 'package:pingis/state/services/auth.service.dart';
 import 'package:provider/provider.dart';
 import 'components/screens/home.screen.dart';
@@ -11,6 +12,8 @@ void main() => runApp(MaterialApp(
   debugShowCheckedModeBanner: false,
   theme: THEME_LIGHT,
   darkTheme: THEME_DARK,
+  initialRoute: '/',
+  onGenerateRoute: Router.generateRoute,
   home: PingisApp(),
 ));
 
