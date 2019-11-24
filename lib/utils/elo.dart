@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:pingis/models/user.model.dart';
-import 'constants.dart';
+import 'package:pingis/utils/constants/maps.dart';
 
 double calculateProbablity(double ratingA, double ratingB) {
   return 1.0 / (1.0 + 1.0 * pow(10, 1.0 * (ratingA - ratingB) / 400));
@@ -8,12 +8,12 @@ double calculateProbablity(double ratingA, double ratingB) {
 
 double obtainK(User user) {
   if (user.gamesPlayed <= 30) {
-    return Constants.kValues['initial'];
+    return K_VALUES['initial'];
   }
   if (user.eloRating > 2400) {
-    return Constants.kValues['high'];
+    return K_VALUES['high'];
   }
-  return Constants.kValues['normal'];
+  return K_VALUES['normal'];
 }
 
 List<double> obtainEloRatings(User userA, User userB, bool aWon) {

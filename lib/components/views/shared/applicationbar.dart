@@ -20,7 +20,7 @@ class ApplicationBar extends StatelessWidget with PreferredSizeWidget {
           FlatButton(
             padding: const EdgeInsets.fromLTRB(2, 8, 8, 8),
             onPressed: () => { /* todo: implement */ },
-            child: Text(title, style: Theme.of(context).textTheme.title.copyWith(color: Colors.white)),
+            child: Text(TITLE, style: Theme.of(context).textTheme.title.copyWith(color: Colors.white)),
           ),
         ],
       ),

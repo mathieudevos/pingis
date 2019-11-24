@@ -1,2 +1,2 @@
-const String author = 'Mathieu Devos';
-const String title = 'Pingis';
+const String AUTHOR = 'Mathieu Devos';
+const String TITLE = 'Pingis';

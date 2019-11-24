@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pingis/components/views/buttons/login.buttons.dart';
+import 'package:provider/provider.dart';
+
 import 'package:pingis/components/views/forms/login.form.dart';
 import 'package:pingis/components/views/forms/signup.form.dart';
 import 'package:pingis/components/views/icons/social.icons.dart';
@@ -7,8 +8,7 @@ import 'package:pingis/state/notifiers/login_form.notifier.dart';
 import 'package:pingis/state/notifiers/signup_form.notifier.dart';
 import 'package:pingis/state/services/auth.service.dart';
 import 'package:pingis/utils/auth/google.auth.dart';
-import 'package:pingis/utils/constants.dart';
-import 'package:provider/provider.dart';
+import 'package:pingis/utils/constants/strings.dart';
 
 class AuthScreen extends StatefulWidget {
   _AuthScreenState createState() => _AuthScreenState();
@@ -87,7 +87,7 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset('assets/pingpong-cloud.png', fit: BoxFit.contain, height: 80),
-                        Container(padding: const EdgeInsets.all(12.0), child: Text(Constants.title, style: Theme.of(context).textTheme.headline))
+                        Container(padding: const EdgeInsets.all(12.0), child: Text(TITLE, style: Theme.of(context).textTheme.headline))
                       ]
                     ),
                   ),
@@ -129,7 +129,7 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 20, bottom: 10),
-                          child: Text('Created by ${Constants.author}', style: textTheme.body1.copyWith(color: Colors.grey)),
+                          child: Text('Created by $AUTHOR', style: textTheme.body1.copyWith(color: Colors.grey)),
                         )
                       ],
                     ),

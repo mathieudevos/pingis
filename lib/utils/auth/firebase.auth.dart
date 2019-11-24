@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pingis/components/snackbarProvider.dart';
-import 'firestore.auth.dart';
+import 'package:pingis/models/user.model.dart';
+import 'package:pingis/utils/api/firestore.api.dart';
 
 class FirebaseAuthService {
   final _context;
@@ -17,8 +18,11 @@ class FirebaseAuthService {
         email: email,
         password: password,
       );
-      print('[INFO] Signed in with FIREBASE: ' + authResult.user.displayName);
-      FirestoreAuthService().updateUserData(authResult.user);
+      print('[INFO] Signed in with FIREBASE: ' + authResult.user.email);
+      final user = await FirestoreAPI().getUser(authResult.user.uid);
+      (user != null)
+        ? FirestoreAPI().upsertUser(user)
+        : FirestoreAPI().newUser(User.generateNewUser(authResult.user));
     } catch (e) {
       showError(_context, e);
     }
@@ -31,7 +35,7 @@ class FirebaseAuthService {
         password: password,
       );
       print('[INFO] Signed up with FIREBASE: ' + authResult.user.displayName);
-      FirestoreAuthService().updateUserData(authResult.user, username: username);
+      FirestoreAPI().newUser(User.generateNewUser(authResult.user, username: username));
     } catch (e) {
       showError(_context, e.toString());
     }

@@ -2,7 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pingis/components/snackbarProvider.dart';
-import 'firestore.auth.dart';
+import 'package:pingis/models/user.model.dart';
+import 'package:pingis/utils/api/firestore.api.dart';
 
 class GoogleAuthService {
   final _context;
@@ -26,7 +27,13 @@ class GoogleAuthService {
       );
       final authResult = await _auth.signInWithCredential(creds);
       print('[INFO] Signed in with GOOGLE: ' + authResult.user.displayName);
-      FirestoreAuthService().updateUserData(authResult.user);
+      final api = FirestoreAPI();
+      final user = await api.getUser(authResult.user.uid);
+      if (user == null) {
+        api.newUser(User.generateNewUser(authResult.user));
+      } else {
+        api.upsertUser(user);
+      }
     } catch (e) {
       showError(_context, e);
     }

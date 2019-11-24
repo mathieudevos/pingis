@@ -21,7 +21,7 @@ final THEME_LIGHT = ThemeData(
       fontFamily: 'Montserrate',
       fontSize: 12.0,
     ),
-    body1: TextStyle(
+    body1: const TextStyle(
       fontSize: 11.0,
       fontFamily: 'Montserrat',
     ),

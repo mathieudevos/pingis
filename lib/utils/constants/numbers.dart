@@ -1,0 +1,1 @@
+const double INITIAL_RATING = 800.0;

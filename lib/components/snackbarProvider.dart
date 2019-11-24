@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 void showError(BuildContext context, dynamic error) {
+  print('[ERROR] ${error.toString()}');
   Flushbar flushbar;
   flushbar = Flushbar(
     titleText: Text('Error occured', style: TextStyle(color: Colors.red[600])),

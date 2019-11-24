@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pingis/components/views/backgrounds/fullpage.background.dart';
-import 'package:pingis/utils/constants.dart';
+import 'package:pingis/utils/constants/strings.dart';
 
 class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class SplashScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset('assets/pingpong-cloud.png', fit: BoxFit.contain, height: 100),
-                      Container(padding: const EdgeInsets.all(12.0), child: Text(Constants.title, style: Theme.of(context).textTheme.headline))
+                      Container(padding: const EdgeInsets.all(12.0), child: Text(TITLE, style: Theme.of(context).textTheme.headline))
                     ]
                   ),
                 ),
@@ -33,7 +33,7 @@ class SplashScreen extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: Padding(
                 padding: const EdgeInsets.all(10),
-                child: Text('Created by ${Constants.author}', style: TextStyle(fontSize: 9, color: Colors.red[100]))
+                child: Text('Created by $AUTHOR', style: TextStyle(fontSize: 9, color: Colors.red[100]))
               ),
             ),
           ]

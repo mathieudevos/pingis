@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pingis/models/user.model.dart';
+import 'package:pingis/utils/api/firestore.api.dart';
 import 'package:pingis/utils/auth/firebase.auth.dart';
 import 'package:pingis/utils/auth/google.auth.dart';
 
@@ -19,20 +20,15 @@ enum SignInMethod {
 }
 
 class AuthService with ChangeNotifier {
-  static final AuthService _instance = AuthService._internal();
-
-  final _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth;
   AuthenticationStatus _status = AuthenticationStatus.Unitialized;
   User _user;
   SignInMethod method;
 
-  factory AuthService() {
-    return _instance;
-  }
 
-  AuthService._internal() {
+  AuthService() : _auth = FirebaseAuth.instance {
     _auth.onAuthStateChanged
-      .map(User.createUser)
+      .map((fUser) => FirestoreAPI().getUser(fUser?.uid))
       .listen(_onAuthStateChanged);
   }
 
@@ -61,9 +57,9 @@ class AuthService with ChangeNotifier {
     print('[INFO] Signed out');
   }
 
-  Future<void> _onAuthStateChanged(User user) async {
-    _user = user;
-    if (user == null) {
+  Future<void> _onAuthStateChanged(Future<User> userFuture) async {
+    _user = await userFuture;
+    if (_user == null) {
       _status = AuthenticationStatus.Unauthenticated;
     } else {
       _status = AuthenticationStatus.Authenticated;
